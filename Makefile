@@ -32,6 +32,7 @@ git-save:
 		echo "No hay cambios para commitear"; \
 	fi
 	git pull origin main  # Cambia 'main' por tu rama
+	git push origin main  # Cambia 'main' por tu rama
 
 # Limpieza + Git (secuencia segura)
 update: clean git-save
