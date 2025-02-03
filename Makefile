@@ -22,7 +22,7 @@ clean:
 view: $(TARGET).pdf
 	xdg-open $(TARGET).pdf 2>/dev/null || open $(TARGET).pdf 2>/dev/null
 
-# Commit automático PRE-clean (¡cuidado!)
+# Commit automático 
 git-save:
 	@echo "=== Guardando cambios en Git ==="
 	git add .
@@ -31,8 +31,8 @@ git-save:
 	else \
 		echo "No hay cambios para commitear"; \
 	fi
-	git pull origin main  # Cambia 'main' por tu rama
-	git push origin main  # Cambia 'main' por tu rama
+	git pull origin main 
+	git push origin main 
 
-# Limpieza + Git (secuencia segura)
+# Limpieza + Git
 update: clean git-save
