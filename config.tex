@@ -27,10 +27,11 @@
 \usepackage{tabularx}
 \input{glyphtounicode}
 \usepackage{etoolbox}
+\usepackage{microtype}
 %------------------------------
 
 %--------------COLORS------------
-\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\definecolor{darkmidnightblue}{rgb}{0.05, 0.33, 0.62}
 %------------------------------
 
 %--------------FONT------------
@@ -113,7 +114,7 @@
 
 %-----------HIGH-LEVEL COMMANDS------------
 % These wrap the low-level commands above so sections only need
-% \job, \proj and \degree — no more list-start/end boilerplate.
+% \job, \project and \degree — no more list-start/end boilerplate.
 
 % --- Work Experience ---
 % Usage:
@@ -139,7 +140,7 @@
 % --- Projects ---
 % Usage:
 %   \begin{projlist}
-%     \proj{\href{url}{\textbf{Title}} $|$ \emph{Tech}}{
+%     \project{\href{url}{\textbf{Title}} $|$ \emph{Tech}}{
 %       \item Bullet
 %     }
 %   \end{projlist}
@@ -147,7 +148,7 @@
   {\resumeSubHeadingListStart}
   {\resumeSubHeadingListEnd}
 
-\newcommand{\proj}[2]{%
+\newcommand{\project}[2]{%
   \resumeProjectHeading{#1}{}%
   \ifblank{#2}{}{%
     \begin{itemize}\small\setlength{\itemsep}{-2pt}\setlength{\parsep}{0pt}%
