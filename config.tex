@@ -26,6 +26,7 @@
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \input{glyphtounicode}
+\usepackage{etoolbox}
 %------------------------------
 
 %--------------COLORS------------
@@ -110,4 +111,61 @@
 \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
 %-------------------------------
 
+%-----------HIGH-LEVEL COMMANDS------------
+% These wrap the low-level commands above so sections only need
+% \job, \proj and \degree — no more list-start/end boilerplate.
 
+% --- Work Experience ---
+% Usage:
+%   \begin{workexp}
+%     \job{Title}{Dates}{Company}{Location}{
+%       \item Bullet one
+%       \item Bullet two
+%     }
+%   \end{workexp}
+\newenvironment{workexp}
+  {\resumeSubHeadingListStart}
+  {\resumeSubHeadingListEnd\vspace*{-10pt}}
+
+\newcommand{\job}[5]{%
+  \resumeSubheading{\textbf{#1}}{#2}{#3}{#4}%
+  \ifblank{#5}{}{%
+    \begin{itemize}\small\setlength{\itemsep}{-2pt}\setlength{\parsep}{0pt}%
+      #5%
+    \end{itemize}\vspace{-5pt}%
+  }%
+}
+
+% --- Projects ---
+% Usage:
+%   \begin{projlist}
+%     \proj{\href{url}{\textbf{Title}} $|$ \emph{Tech}}{
+%       \item Bullet
+%     }
+%   \end{projlist}
+\newenvironment{projlist}
+  {\resumeSubHeadingListStart}
+  {\resumeSubHeadingListEnd}
+
+\newcommand{\proj}[2]{%
+  \resumeProjectHeading{#1}{}%
+  \ifblank{#2}{}{%
+    \begin{itemize}\small\setlength{\itemsep}{-2pt}\setlength{\parsep}{0pt}%
+      #2%
+    \end{itemize}\vspace{-5pt}%
+  }%
+}
+
+% --- Education ---
+% Usage:
+%   \begin{edulist}
+%     \degree{University}{Location}{Degree name}{Dates}
+%   \end{edulist}
+\newenvironment{edulist}
+  {\resumeSubHeadingListStart}
+  {\resumeSubHeadingListEnd}
+
+\newcommand{\degree}[4]{%
+  \resumeSubheading{\textbf{#1}}{#2}{#3}{#4}%
+}
+%-------------------------------

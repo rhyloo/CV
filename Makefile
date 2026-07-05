@@ -1,28 +1,29 @@
-# Uso: make [all|clean|view]
+# Uso: make [all|clean|view|git-save|update]
 
-TEX = pdflatex
-TARGET = jorge_benavides-emebedded_engineer
+TEX       = pdflatex
+TARGET    = jorge_benavides-emebedded_engineer
+MAIN      = main
 BUILD_DIR = build
+SECTIONS  = $(wildcard sections/*.tex)
 
-.PHONY: all clean view
+.PHONY: all clean view git-save update
 
 all: $(TARGET).pdf
 
-$(TARGET).pdf: $(TARGET).tex
-	@mkdir -p $(BUILD_DIR)  # <-- TAB (no espacios)
-	$(TEX) -output-directory=$(BUILD_DIR) $<  # <-- TAB
-	$(TEX) -output-directory=$(BUILD_DIR) $<  # <-- TAB
-	@mv $(BUILD_DIR)/$(TARGET).pdf .  # <-- TAB
+$(TARGET).pdf: $(MAIN).tex config.tex $(SECTIONS)
+	@mkdir -p $(BUILD_DIR)
+	$(TEX) -output-directory=$(BUILD_DIR) -jobname=$(TARGET) $(MAIN).tex
+	$(TEX) -output-directory=$(BUILD_DIR) -jobname=$(TARGET) $(MAIN).tex
+	@mv $(BUILD_DIR)/$(TARGET).pdf .
 
 clean:
-	rm -rf $(BUILD_DIR)  # <-- TAB
-	# rm -f $(TARGET).pdf
+	rm -rf $(BUILD_DIR)
 	rm -f *.aux *.log *.out *.toc *.bbl *.blg *.lof *.lot *.xwm
 
 view: $(TARGET).pdf
 	xdg-open $(TARGET).pdf 2>/dev/null || open $(TARGET).pdf 2>/dev/null
 
-# Commit automático 
+# Commit automático
 git-save:
 	@echo "=== Guardando cambios en Git ==="
 	git add .
@@ -31,8 +32,8 @@ git-save:
 	else \
 		echo "No hay cambios para commitear"; \
 	fi
-	git pull origin main 
-	git push origin main 
+	git pull origin main
+	git push origin main
 
 # Limpieza + Git
 update: clean git-save
